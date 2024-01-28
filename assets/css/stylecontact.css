@@ -1,0 +1,86 @@
+#ctbody{
+    background: none;
+    position: relative;
+   }
+   .contact{
+       width: 100%;
+       height: 100vh;
+       background: url(https://raw.githubusercontent.com/sefyudem/Contact-Us-Form/9b54948b4204c330366f25ab96fc576ddf1932ac/img/bg.jpg) no-repeat center;
+       background-size: cover;
+       overflow: hidden;
+       z-index: -1;
+       filter:blur(40px);
+   }
+   .wrap{
+       background: red;
+       width: 70%;
+       height: 80vh;
+       position: absolute;
+       top: 12%;
+       left: 15%;
+       display: flex;
+       overflow: hidden;
+   }
+   .logocont{
+       width: 45%;
+       height: 100%;
+   }
+   .logocont img{
+       width: 100%;
+       height: 100%;
+       object-fit: cover;
+   
+   }
+   .cont{
+       width: 55%;
+       height: 100%;
+       background: black;
+       color: white;
+       text-align: center;
+   }
+   #formct{
+       width: 100%;
+       height: 90%;
+       /* background: red; */
+       display: flex;
+       flex-direction: column;
+   }
+   
+   .cont h1 {
+       /* width: 20%; */
+       display: inline-block;
+       border-bottom: solid 2px black;
+   }
+   .cont input{
+       margin-top: 40px;
+       width: 70%;
+       height: 10%;
+       text-align: center;
+   }
+   .cont textarea{
+       margin-top: 40px;
+       width: 70%;
+       text-align: center;
+   }
+   #subcont{
+       display: inline-block;
+       width: 20%;
+       height: 5%;
+       background: white;
+       border-radius: 10px;
+       margin-top: 60px;
+       margin-left: auto;
+       margin-right: auto;
+       text-decoration: none;
+       color: black;
+       font-weight: bold;
+   }
+   #subbut{
+       width: 10%;
+       height: 5%;
+       outline: none;
+       position: absolute;
+       bottom: 10px;
+       left: 68%;
+       background: white;
+   }
