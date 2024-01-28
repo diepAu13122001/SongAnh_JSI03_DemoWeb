@@ -2,6 +2,9 @@
     background: none;
     position: relative;
    }
+header{
+    background-color: black;
+}
    .contact{
        width: 100%;
        height: 100vh;

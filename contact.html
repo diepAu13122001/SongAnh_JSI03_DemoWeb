@@ -15,14 +15,21 @@
     <title>MidAutumn</title>
 </head>
 <header>
-    <a href="#" class="logo">SA</a>
-    <ul>
-        <li><a href="index.html"  class="mainchoice" onclick="backgroundcolor()">Home</a></li>
-        <li><a href="account.html" class="mainchoice" onclick="backgroundcolor()">Account</a></li>
-        <li><a href="form.html" class="mainchoice" onclick="backgroundcolor()">Work</a></li>
-        <li><a href="contact.html" id="active" class="mainchoice" onclick="backgroundcolor()">Contact</a></li>
-    </ul>
-</header>
+    <nav class="navbar">
+      <a href="#" class="logo">
+        <img src="" alt="SA">
+      </a>
+      <ul class="menu-links">
+        <li><a href="#">GG</a></li>
+        <li><a href="#">EXPLORE</a></li>
+        <li><a href="contact.html">CONTACT US</a></li>
+        <li><a href="login.html">SIGN IN    </a></li>
+        <li class="join-btn"><a href="login.html">Join Us</a></li>
+        <span id="close-menu-btn" class="material-symbols-outlined">close</span>
+      </ul>
+      <span id="hamburger-btn" class="material-symbols-outlined">menu</span>
+    </nav>
+  </header>
 <body id="ctbody">
     <div class="contact"></div>
     <div class="wrap">
@@ -65,4 +72,13 @@
 
 }
 </script>
+<script>
+    const header = document.querySelector("header");
+    const hamburgerBtn = document.querySelector("#hamburger-btn");
+    const closeMenuBtn = document.querySelector("#close-menu-btn");
+    // Toggle mobile menu on hamburger button click
+    hamburgerBtn.addEventListener("click", () => header.classList.toggle("show-mobile-menu"));
+    // Close mobile menu on close button click
+    closeMenuBtn.addEventListener("click", () => hamburgerBtn.click());
+  </script>
 </html>
