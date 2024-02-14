@@ -192,10 +192,10 @@
   var signinbutton = document.getElementById('signinbutton')
   console.log(signinbutton)
   signinbutton.addEventListener('click', (e) => {
-    var email = document.getElementById('emailin').value;
-    var password = document.getElementById('passwordin').value;
+    var emailin = document.getElementById('emailin').value;
+    var passwordin = document.getElementById('passwordin').value;
 
-    signInWithEmailAndPassword(auth, email, password)
+    signInWithEmailAndPassword(auth, emailin, passwordin)
       .then((userCredential) => {
         // Signed in 
         const user = userCredential.user;
@@ -205,7 +205,9 @@
           last_login: dt,
         })
         alert("dangnhaptc")
-        window.location.href = 'index.html'
+
+        setTimeout(window.location.href = 'explore.html',10000)
+        
         // ...
       })
       .catch((error) => {
