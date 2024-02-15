@@ -8,7 +8,6 @@
     <script src="https://kit.fontawesome.com/64d58efce2.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="assets/css/explore.css">
     <link rel="stylesheet" href="assets/css/style.css">
-    <!-- <link rel="stylesheet" href="assets/css/stylelogin.css"> -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
 
 </head>
@@ -29,38 +28,45 @@
             <span id="hamburger-btn" class="material-symbols-outlined">menu</span>
         </nav>
     </header>
+
     <div class="container">
         <h1>ANALYSIS FORM</h1>
         <p>Creat your financial chart by this form</p>
         <form>
             <div class="row">
+                <!-- name -->
                 <div class="column">
                     <label for="name">Chart Name</label>
                     <input type="text" id="name" placeholder="Your name here">
                 </div>
+                <!-- email -->
                 <div class="column">
                     <label for="email">Income</label>
                     <input type="number" id="email" placeholder="Your email here">
                 </div>
             </div>
             <div class="row">
+                <!-- outcome -->
                 <div class="column">
                     <label for="contact">OutCome</label>
                     <input type="number" id="contact" placeholder="Food">
                     <input type="number" id="contact" placeholder="Entertain">
                     <input type="number" id="contact" placeholder="Other">
                 </div>
+                <!-- target -->
                 <div class="column">
                     <label for="contact">Target</label>
                     <input type="tel" id="contact" placeholder="Your phone number here">
                 </div>
             </div>
+
             <div class="row">
                 <div class="column">
                     <label for="issue">Note</label>
                     <textarea id="issue" placeholder="Describe your issue in detail here" rows="3"></textarea>
                 </div>
             </div>
+
             <button>Draw</button>
         </form>
     </div>
