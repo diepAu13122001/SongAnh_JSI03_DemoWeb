@@ -80,19 +80,48 @@ export default class Explore {
     //submit btn
     const draw_btn = document.createElement("button");
     draw_btn.innerText = "Draw";
-    draw_btn.addEventListener("click", this.drawChart);
-
+    draw_btn.addEventListener("click", (e) => {
+      e.preventDefault();
+      this.drawChart();
+    });
+    form.appendChild(draw_btn);
     container_form.appendChild(form);
     container.appendChild(container_form);
-
-    // add footer in page
-    if (!document.getElementsByTagName("footer").length) {
-      const footer = new Footer();
-      footer.initRender(container);
-    }
   }
 
   drawChart() {
-    
+    //validate form
+
+    //create data on firestore
+
+    //draw chart
+    google.charts.load("current", { packages: ["corechart"] });
+    google.charts.setOnLoadCallback(drawChart);
+    function drawChart() {
+      var income = 11; //lấy từ form đã lưu trong database
+      var food = 2;
+      var entertain = 3;
+      var explore = 7;
+      var data = google.visualization.arrayToDataTable([
+        ["Task", "Hours per Day"],
+        ["Income", income], //income
+        ["Eat", 2], //food
+        ["Commute", 2], //entertain
+        ["Watch TV", 2], //other
+        ["Sleep", 7], //target
+      ]);
+      var description = document.getElementsByClassName("text");
+      description.innerText = ""; //phan description lấy từ form
+
+      var options = {
+        title: "My Daily Activities", //chart name
+        is3D: true, //chinh 3d
+      };
+
+      var chart = new google.visualization.PieChart(
+        document.getElementById("piechart_3d")
+      );
+      chart.draw(data, options);
+    }
   }
 }

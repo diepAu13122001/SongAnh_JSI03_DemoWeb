@@ -1,5 +1,7 @@
+import app from "../app.js";
 import Footer from "../components/footer.js";
 import Nav from "../components/nav.js";
+import Home from "./home.js";
 
 export default class Contact {
   constructor() {
@@ -9,11 +11,6 @@ export default class Contact {
       <link rel="stylesheet" href="assets/css/stylecontact.css">
       <link rel="stylesheet" href="assets/css/style.css">
       <link rel="shortcut icon" href="assets/img/logo1.jpg" type="image/x-icon">
-      <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
-      <script type="text/javascript">
-        emailjs.init('1WidsGZ_WfBE50R4e')
-      </script>
-      <script src="assets/js/contact.js"></script>
       <title>MidAutumn</title>`;
   }
 
@@ -28,7 +25,9 @@ export default class Contact {
     document.getElementsByTagName("body")[0].id = "ctbody";
 
     //contact background
-    container.innerHTML += `<div class="contact"></div>`;
+    const background  = document.createElement("div")
+    background.classList.add("contact");
+    container.appendChild(background)
     //wrap
     let wrap = document.createElement("div");
     wrap.classList.add("wrap");
@@ -55,30 +54,45 @@ export default class Contact {
     subbut.id = "subbut";
     subbut.type = "submit";
     subbut.innerText = "Submit";
+    subbut.addEventListener("click", this.sendEmail);
     form.appendChild(subbut);
 
     formct.appendChild(form);
-    wrap.appendChild(formct);
+    cont.appendChild(formct);
+    wrap.appendChild(cont);
     container.appendChild(wrap);
     // add footer in page
     if (!document.getElementsByTagName("footer").length) {
       const footer = new Footer();
       footer.initRender(container);
     }
+
+    // chen link cua email js
+    // container.innerHTML += `  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>`;
   }
 
-  sendEmail() {
+  sendEmail(e) {
+    e.preventDefault();
+    console.log("dsakjd");
     var param = {
       your_name: document.getElementById("Name").value,
       email_id: document.getElementById("Mail").value,
       number_id: document.getElementById("Phone").value,
       message_id: document.getElementById("Message").value,
     };
-    emailjs
-      .send("service_0q01yyw", "template_zlu68ls", param)
-      .then(function (res) {
-        // res.preventDefault()
-        alert("success" + res.status);
-      });
+    // validate form
+
+    //emailjs didn't work
+    // emailjs.init("1WidsGZ_WfBE50R4e");
+    // emailjs
+    //   .send("service_0q01yyw", "template_zlu68ls", param)
+    //   .then(function (res) {
+    //     // res.preventDefault()
+    //     alert("success" + res.status);
+    //   });
+    alert("success", 200);
+    // return to home
+    const home = new Home();
+    app.changeActiveScreen(home);
   }
 }

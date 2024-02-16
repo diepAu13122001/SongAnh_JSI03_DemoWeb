@@ -1,22 +1,32 @@
 import app, { firebaseApp } from "../../app.js";
 import {
+  getDatabase,
+  set,
+  ref,
+  update,
+} from "https://www.gstatic.com/firebasejs/10.6.0/firebase-database.js";
+import {
   getAuth,
   signInWithEmailAndPassword,
+  createUserWithEmailAndPassword,
 } from "https://www.gstatic.com/firebasejs/10.6.0/firebase-auth.js";
 import Nav from "../components/nav.js";
 import Footer from "../components/footer.js";
+import Home from "./home.js";
 
 export default class Login {
   constructor() {
     // set head for HTML file
     document.getElementsByTagName(
       "head"
-    )[0].innerHTML = ` <meta charset="UTF-8" />
+    )[0].innerHTML = `<meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <script src="https://kit.fontawesome.com/64d58efce2.js" crossorigin="anonymous"></script>
+    <script
+      src="https://kit.fontawesome.com/64d58efce2.js"
+      crossorigin="anonymous"
+    ></script>
     <link rel="stylesheet" href="assets/css/stylelogin.css" />
-    <link rel="stylesheet" href="assets/css/style.css">
-    
+    <link rel="stylesheet" href="assets/css/style.css" />
     <title>Sign in & Sign up Form</title>`;
   }
 
@@ -39,48 +49,50 @@ export default class Login {
     forms.classList.add("signin-signup");
 
     // form login
-    let form_login = document.createElement("form");
+    const form_login = document.createElement("form");
     form_login.classList.add("sign-in-form");
     //form title
     form_login.innerHTML += `<h2 class="title">Sign in</h2>`;
     //email
     const emailInput = `<div class="input-field">
-    <i class="fas fa-user"></i>
-    <input type="text" placeholder="Email" id="emailin" />
-  </div>`;
+      <i class="fas fa-user"></i>
+      <input type="text" placeholder="Email" id="emailin" />
+    </div>`;
     form_login.innerHTML += emailInput;
     //pass
     const passLoginInput = ` <div class="input-field">
-    <i class="fas fa-lock"></i>
-    <input type="password" placeholder="Password" id="passwordin" />
-  </div>`;
+      <i class="fas fa-lock"></i>
+      <input type="password" placeholder="Password" id="passwordin" />
+    </div>`;
     form_login.innerHTML += passLoginInput;
     //submit button
-    const submitBtn = document.createElement("input");
-    submitBtn.type = "submit";
-    submitBtn.value = "Login";
+    const submitBtn = document.createElement("button");
+    submitBtn.innerText = "Login";
     submitBtn.classList.add("btn");
     submitBtn.classList.add("solid");
     submitBtn.id = "signinbutton";
     submitBtn.addEventListener("click", this.getLogin.bind(this));
     form_login.appendChild(submitBtn);
     //social media icon
-    form_login.innerHTML += `<p class="social-text">Or Sign in with social platforms</p>`;
-    const socialMediaList = `  <div class="social-media">
-    <a href="#" class="social-icon">
-      <i class="fab fa-facebook-f"></i>
-    </a>
-    <a href="#" class="social-icon">
-      <i class="fab fa-twitter"></i>
-    </a>
-    <a href="#" class="social-icon">
-      <i class="fab fa-google"></i>
-    </a>
-    <a href="#" class="social-icon">
-      <i class="fab fa-linkedin-in"></i>
-    </a>
-  </div>`;
-    form_login.innerHTML += socialMediaList;
+    const social_text = document.createElement("p");
+    social_text.classList.add("social-text");
+    social_text.innerText = "Or Sign in with social platforms";
+    form_login.appendChild(social_text);
+    const socialMediaList = document.createElement("div");
+    socialMediaList.classList.add("social-media");
+    socialMediaList.innerHTML = `<a href="#" class="social-icon">
+        <i class="fab fa-facebook-f"></i>
+      </a>
+      <a href="#" class="social-icon">
+        <i class="fab fa-twitter"></i>
+      </a>
+      <a href="#" class="social-icon">
+        <i class="fab fa-google"></i>
+      </a>
+      <a href="#" class="social-icon">
+        <i class="fab fa-linkedin-in"></i>
+      </a>`;
+    form_login.appendChild(socialMediaList);
     forms.appendChild(form_login);
 
     // form signup
@@ -116,22 +128,25 @@ export default class Login {
     submitBtn1.addEventListener("click", this.createAccount.bind(this));
     form_signup.appendChild(submitBtn1);
     //social media icon
-    form_signup.innerHTML += `<p class="social-text">Or Sign up with social platforms</p>`;
-    const socialMediaList1 = `<div class="social-media">
-    <a href="#" class="social-icon">
-    <i class="fab fa-facebook-f"></i>
-  </a>
-  <a href="#" class="social-icon">
-    <i class="fab fa-twitter"></i>
-  </a>
-  <a href="#" class="social-icon">
-    <i class="fab fa-google"></i>
-  </a>
-  <a href="#" class="social-icon">
-    <i class="fab fa-linkedin-in"></i>
-  </a>
-    </div>`;
-    form_signup.innerHTML += socialMediaList1;
+    const social_text1 = document.createElement("p");
+    social_text1.classList.add("social-text");
+    social_text1.innerText = "Or Sign in with social platforms";
+    form_login.appendChild(social_text1);
+    const socialMediaList1 = document.createElement("div");
+    socialMediaList1.classList.add("social-media");
+    socialMediaList1.innerHTML = `<a href="#" class="social-icon">
+        <i class="fab fa-facebook-f"></i>
+      </a>
+      <a href="#" class="social-icon">
+        <i class="fab fa-twitter"></i>
+      </a>
+      <a href="#" class="social-icon">
+        <i class="fab fa-google"></i>
+      </a>
+      <a href="#" class="social-icon">
+        <i class="fab fa-linkedin-in"></i>
+      </a>`;
+    form_signup.appendChild(socialMediaList1);
     forms.appendChild(form_signup);
 
     forms_container.appendChild(forms);
@@ -160,10 +175,14 @@ export default class Login {
     changeSignupBtn.classList.add("transparent");
     changeSignupBtn.id = "sign-up-btn";
     changeSignupBtn.innerText = "Sign up";
-    changeSignupBtn.addEventListener("click", this.gotoLogin);
+    changeSignupBtn.addEventListener("click", () => this.gotoRegister());
     contentLeft.appendChild(changeSignupBtn);
     //img signin
-    contentLeft.innerHTML += `<img src="assets/img/log.svg" class="image" alt="" />`;
+    const img_signup = document.createElement("img");
+    img_signup.src = "assets/img/log.svg";
+    img_signup.classList.add("image");
+    img_signup.alt = "image signup";
+    contentLeft.appendChild(img_signup);
     panel_left.appendChild(contentLeft);
     panels.appendChild(panel_left);
 
@@ -187,10 +206,14 @@ export default class Login {
     changeSigninBtn.classList.add("transparent");
     changeSigninBtn.id = "sign-in-btn";
     changeSigninBtn.innerText = "Sign in";
-    changeSigninBtn.addEventListener("click", this.gotoLogin);
+    changeSigninBtn.addEventListener("click", () => this.gotoLogin());
     contentRight.appendChild(changeSigninBtn);
     //img signin
-    contentRight.innerHTML += `<img src="assets/img/register.svg" class="image" alt="" />`;
+    const img_login = document.createElement("img");
+    img_login.src = "assets/img/register.svg";
+    img_login.classList.add("image");
+    img_login.alt = "image login";
+    contentRight.appendChild(img_login);
     panel_right.appendChild(contentRight);
     panels.appendChild(panel_right);
     container_div.appendChild(panels);
@@ -208,28 +231,74 @@ export default class Login {
   getLogin(e) {
     // chan phan di chuyen tu dong cua form
     e.preventDefault();
-    console.log("first")
     // get data from input (login form)
-
+    const emailin = document.getElementById("emailin").value;
+    const passwordin = document.getElementById("passwordin").value;
     // validate form
+
+    //auth by firebase
+    const auth = getAuth();
+    signInWithEmailAndPassword(auth, emailin, passwordin)
+      .then((userCredential) => {
+        // Signed in
+        const user = userCredential.user;
+
+        const dt = new Date();
+        const database = getDatabase(firebaseApp);
+        update(ref(database, "users/" + user.uid), {
+          last_login: dt,
+        });
+        alert("dangnhaptc");
+        //gotohome
+        const login = new Home();
+        app.changeActiveScreen(login);
+      })
+      .catch((error) => {
+        const errorMessage = error.message;
+        alert(errorMessage);
+      });
   }
 
   createAccount(e) {
     // chan phan di chuyen tu dong cua form
     e.preventDefault();
-
     // get data from input (login form)
-
+    const email = document.getElementById("email").value;
+    const password = document.getElementById("password").value;
+    const username = document.getElementById("Username").value;
     // validate form
+
+    // create account on Firebase
+    const auth = getAuth();
+    createUserWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        // Signed up
+        const user = userCredential.user;
+
+        set(ref(database, "users/" + user.uid), {
+          username: username,
+          email: email,
+        });
+        alert("User Created");
+        //gotohome
+        const login = new Home();
+        app.changeActiveScreen(login);
+      })
+      .catch((error) => {
+        const errorMessage = error.message;
+        alert(errorMessage);
+      });
   }
 
   gotoLogin() {
     //todo
-    console.log("dkahdlksj");
+    const container = document.querySelector(".container");
+    container.classList.remove("sign-up-mode");
   }
 
   gotoRegister() {
     //todo
-    console.log("dkahdlksj");
+    const container = document.querySelector(".container");
+    container.classList.add("sign-up-mode");
   }
 }

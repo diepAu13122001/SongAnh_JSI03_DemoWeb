@@ -1,5 +1,8 @@
 import app from "../app.js";
+import Contact from "../pages/contact.js";
 import Explore from "../pages/explore.js";
+import Home from "../pages/home.js";
+import Login from "../pages/login.js";
 
 export default class Nav {
   constructor() {}
@@ -41,7 +44,7 @@ export default class Nav {
     li4.classList.add("join-btn");
     const a4 = document.createElement("a");
     a4.innerText = "Join Us";
-    a3.addEventListener("click", this.gotoLogin);
+    a4.addEventListener("click", this.gotoLogin);
     li4.appendChild(a4);
     ul.appendChild(li4);
     //menu button
@@ -72,7 +75,16 @@ export default class Nav {
     const login = new Explore();
     app.changeActiveScreen(login);
   }
-  gotoContact() {}
-  gotoHome() {}
-  gotoLogin() {}
+  gotoContact() {
+    const login = new Contact();
+    app.changeActiveScreen(login);
+  }
+  gotoHome() {
+    const login = new Home();
+    app.changeActiveScreen(login);
+  }
+  gotoLogin() {
+    const login = new Login();
+    app.changeActiveScreen(login);
+  }
 }

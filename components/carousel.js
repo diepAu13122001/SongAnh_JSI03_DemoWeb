@@ -53,8 +53,6 @@ export default class Carousel {
   changeSlide() {
     var slides = document.querySelectorAll(".slide");
     var btns = document.querySelectorAll(".btn");
-    console.log(slides);
-    console.log(btns);
     let currentSlide = 1;
     var manualNav = function (manual) {
       slides.forEach((slide) => {
