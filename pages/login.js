@@ -1,4 +1,4 @@
-import app, { firebaseApp } from "../../app.js";
+import app, { firebaseApp } from "../app.js";
 import {
   getDatabase,
   set,
