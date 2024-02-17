@@ -25,9 +25,9 @@ export default class Contact {
     document.getElementsByTagName("body")[0].id = "ctbody";
 
     //contact background
-    const background  = document.createElement("div")
+    const background = document.createElement("div");
     background.classList.add("contact");
-    container.appendChild(background)
+    container.appendChild(background);
     //wrap
     let wrap = document.createElement("div");
     wrap.classList.add("wrap");
@@ -66,14 +66,10 @@ export default class Contact {
       const footer = new Footer();
       footer.initRender(container);
     }
-
-    // chen link cua email js
-    // container.innerHTML += `  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>`;
   }
 
   sendEmail(e) {
     e.preventDefault();
-    console.log("dsakjd");
     var param = {
       your_name: document.getElementById("Name").value,
       email_id: document.getElementById("Mail").value,
@@ -81,18 +77,23 @@ export default class Contact {
       message_id: document.getElementById("Message").value,
     };
     // validate form
-
-    //emailjs didn't work
-    // emailjs.init("1WidsGZ_WfBE50R4e");
-    // emailjs
-    //   .send("service_0q01yyw", "template_zlu68ls", param)
-    //   .then(function (res) {
-    //     // res.preventDefault()
-    //     alert("success" + res.status);
-    //   });
-    alert("success", 200);
-    // return to home
-    const home = new Home();
-    app.changeActiveScreen(home);
+    let names = document.getElementById("Name");
+    let mail = document.getElementById("Mail");
+    let phone = document.getElementById("Phone");
+    let mess = document.getElementById("Message");
+    if ((names.value, mail.value, phone.value, mess.value == "")) {
+      alert("hãy điền đầy đủ");
+    } else {
+      emailjs.init("1WidsGZ_WfBE50R4e");
+      emailjs
+        .send("service_0q01yyw", "template_zlu68ls", param)
+        .then(function (res) {
+          // res.preventDefault()
+          alert("success" + res.status);
+        });
+      // return to home
+      const home = new Home();
+      app.changeActiveScreen(home);
+    }
   }
 }

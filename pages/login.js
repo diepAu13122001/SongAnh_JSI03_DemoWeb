@@ -248,7 +248,9 @@ export default class Login {
         update(ref(database, "users/" + user.uid), {
           last_login: dt,
         });
+        localStorage.setItem("currentUser", JSON.stringify(user));
         alert("dangnhaptc");
+
         //gotohome
         const login = new Home();
         app.changeActiveScreen(login);
@@ -270,16 +272,19 @@ export default class Login {
 
     // create account on Firebase
     const auth = getAuth();
+    const database = getDatabase(firebaseApp);
     createUserWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         // Signed up
         const user = userCredential.user;
 
         set(ref(database, "users/" + user.uid), {
-          username: username,
+          displayName: username,
           email: email,
         });
-        alert("User Created");
+
+        localStorage.setItem("currentUser", JSON.stringify(user));
+        alert("Dang ky thanh cong");
         //gotohome
         const login = new Home();
         app.changeActiveScreen(login);
