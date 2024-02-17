@@ -235,7 +235,9 @@ export default class Login {
     const emailin = document.getElementById("emailin").value;
     const passwordin = document.getElementById("passwordin").value;
     // validate form
-
+if (!email || !password) {
+      alert("You need to fill this form");
+    } else {
     //auth by firebase
     const auth = getAuth();
     signInWithEmailAndPassword(auth, emailin, passwordin)
@@ -258,7 +260,7 @@ export default class Login {
       .catch((error) => {
         const errorMessage = error.message;
         alert(errorMessage);
-      });
+      });}
   }
 
   createAccount(e) {
@@ -269,7 +271,9 @@ export default class Login {
     const password = document.getElementById("password").value;
     const username = document.getElementById("Username").value;
     // validate form
-
+if (!email || !password || !username) {
+      alert("You need to fill this form");
+    } else {
     // create account on Firebase
     const auth = getAuth();
     const database = getDatabase(firebaseApp);
@@ -293,7 +297,7 @@ export default class Login {
         const errorMessage = error.message;
         alert(errorMessage);
       });
-  }
+  }}
 
   gotoLogin() {
     //todo
